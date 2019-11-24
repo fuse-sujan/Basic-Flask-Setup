@@ -94,6 +94,11 @@ pipenv install
 
 ```
 python3 -m src
+
+or
+
+export FLASK_APP=src/__main__
+flask run
 ```
 
 and open your browser to here:
