@@ -1,22 +1,16 @@
 import argparse
 
 from flask import Flask, jsonify
-from flask_restplus import Api, Resource
+from werkzeug.contrib.fixers import ProxyFix
+
+from src.resources import api
 
 
 def create_app():
-    api = Api()
     app = Flask(__name__)
+    app.wsgi_app = ProxyFix(app.wsgi_app)
     api.init_app(app)
-    ns = api.namespace('intro', description='Introduction')
 
-    @ns.route('/')
-    class HelloWorld(Resource):
-        def get(self):
-            return jsonify({'message': 'hello world'})
-
-        def post(self):
-            return jsonify({'success': True})
     return app
 
 
